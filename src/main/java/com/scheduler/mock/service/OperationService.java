@@ -44,33 +44,20 @@ public class OperationService {
 
     public List<Operation> createOperations() {
         List<Operation> l = new ArrayList<>();
-
-        Operation operation = Operation.builder()
-                .id(1L)
-                .code("mdlbackoffice:-get-worksite")
-                .uri("https://askdmakj.com.tr")
-                .method("GET")
-                .className("simpleOperation")
-                .callSystem("default")
-                .createdAt(Instant.now())
-                .createdUser("eko.eko")
-                .updatedUser("eko.eko")
-                .updatedAt(Instant.now()).build();
-        l.add(operation);
-
-
-        Operation operation3 = operation.builder()
-                .id(2L)
-                .code("mdlbackoffice:-get-worksite222222")
-                .uri("https://askdmakjasdasd.com.tr")
-                .method("POST")
-                .className("simpleOperation")
-                .callSystem("default")
-                .createdAt(Instant.now())
-                .createdUser("eko.eko")
-                .updatedUser("eko.eko")
-                .updatedAt(Instant.now()).build();
-        l.add(operation3);
+        for(int i = 0; i < 100; i++) {
+            Operation operation = Operation.builder()
+                    .id(Long.valueOf(i))
+                    .code("hobaa:-get-worksite " + i)
+                    .uri("https://askdmakj.com.tr")
+                    .method("GET")
+                    .className("simpleOperation")
+                    .callSystem("default")
+                    .createdAt(Instant.now())
+                    .createdUser("eko.eko")
+                    .updatedUser("eko.eko")
+                    .updatedAt(Instant.now()).build();
+            l.add(operation);
+        }
         return l;
     }
 }
