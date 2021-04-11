@@ -7,6 +7,7 @@ import com.scheduler.mock.model.TaskCron;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class OperationService {
     public void updateOperation(Long opId, Operation operation) {
 
         for (int i = 0; i < operations.size(); i++) {
-            if(operations.get(i).getId().equals(opId)){
+            if (operations.get(i).getId().equals(opId)) {
                 operations.remove(i);
                 operations.add(i, operation);
             }
@@ -38,13 +39,28 @@ public class OperationService {
         operations.add(op);
     }
 
+    public void batchOperation(List<Operation> operationList) {
+        operationList.forEach(e -> {
+            Operation operation = operations.stream()
+                    .filter((op) -> op.getCode().equalsIgnoreCase(e.getCode()))
+                    .findAny()
+                    .orElse(null);
+            if(operation != null) {
+                updateOperation(operation.getId(), e);
+            } else {
+                addOperation(e);
+            }
+        });
+    }
+
     public List<Operation> getOperations() {
         return operations;
     }
 
     public List<Operation> createOperations() {
+
         List<Operation> l = new ArrayList<>();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             Operation operation = Operation.builder()
                     .id(Long.valueOf(i))
                     .code("hobaa:-get-worksite " + i)

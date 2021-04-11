@@ -31,6 +31,12 @@ public class OperationController {
         return new ResponseEntity<>(operation, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/batch")
+    public ResponseEntity<?> batchOperation(@RequestBody List<Operation> operations) {
+        operationService.batchOperation(operations);
+        return new ResponseEntity<>(operations, HttpStatus.CREATED);
+    }
+
     @PutMapping(value = "/operation/{operationId}")
     public ResponseEntity<?> updateOperation(@NonNull @PathVariable Long operationId, @RequestBody Operation operation) {
         System.out.println("taskId: " + operationId);
